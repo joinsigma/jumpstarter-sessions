@@ -1,0 +1,76 @@
+// ------Edabit Questions-----
+
+// Number of Boomerangs
+function countBoomerangs(arr) {
+	// go through array in groups of 3
+    // check if #1 and #3 matches
+        // if true, check if #2 does not match #1  (5, -5, 5)
+            // add to total counter 
+        // else do nothing
+    // else do nothing
+   
+    let totalBoomerangs = 0
+    for(let i = 0; i<arr.length-2; i++){
+        
+        if( arr[i] === arr[i+2]){
+            // console.log("Boomerange first number",arr[i])
+            if(arr[i]!= arr[i+1]){
+                totalBoomerangs +=1
+                // console.log(arr[i],arr[i+1],arr[i+2])
+            }
+        }
+    }
+    return totalBoomerangs
+}
+
+console.log(countBoomerangs([9, 5, 9, 5, 1, 1, 1]) )
+console.log(countBoomerangs([5, 6, 6, 7, 6, 3, 9]) )
+console.log(countBoomerangs([4, 4, 4, 9, 9, 9, 9]) )
+
+
+// ----Leetcode questions----
+
+// 1672. Richest Customer Wealth
+var maximumWealth = function(accounts) {
+    let maxWealth = 0
+    for(customer of accounts){
+        let sum = 0
+        for(amount of customer){
+            sum += amount
+        }
+        
+        if (sum > maxWealth){
+            maxWealth = sum
+        }
+    }
+    return maxWealth
+};
+
+
+// 412. Fizz Buzz
+var fizzBuzz = function(n) {
+    let stringResult =[]
+    
+    for(let i = 1; i<=n; i++){
+// Method 1
+//         if (i%3 == 0 && i%5 == 0) stringResult.push("FizzBuzz")
+        
+//         else if(i%3 == 0)  {
+//             stringResult.push("Fizz")
+//         }
+//         else if(i%5 == 0) {
+//             stringResult.push("Buzz")
+//         }
+       
+// Method 2
+        if(i%3 == 0 || i%5 == 0) {
+            if(i%3 != 0) stringResult.push("Buzz")
+            else if(i%5 != 0) stringResult.push("Fizz")
+            else stringResult.push("FizzBuzz")
+        }
+        
+        else stringResult.push(`${i}`)
+    }
+    
+    return stringResult
+};
