@@ -1,1 +1,131 @@
-Please update Nelson's codes here
+// Sept 5, 2022 - Jumpstarter Session - CheckPoint Hour
+
+// Objective: Solving 2 algorithms challenges (easy) from edabit.com
+// Video for code-along Link: https://youtu.be/VSskZ-Y86WU
+
+/****************************************************************************************************/
+
+// 1. Sum of Cubes (edabit)
+// Level: Easy
+// Link: https://edabit.com/challenge/XdAR3KohR5w7rjrFg
+
+/* pseudo-code 
+ * 1. Check if the array is empty
+ * 2. Loop through the array
+ * 3. Take each element and find its cube (multiply 3 times)
+ * 4. Initialize a 'sum' variable
+ * 5. Sum up the rest of the element in cube
+ * 6. Return sum
+*/
+
+function sumOfCubes(array){
+    let sum = 0;
+    for (let i=0; i<array.length; i++){
+        let cube = array[i] * array[i] * array[i];
+        sum += cube;
+    }
+    console.log(sum);   // check answer on console
+    return sum;
+}
+
+// Test Cases
+sumOfCubes([1, 5, 9]) // 855
+sumOfCubes([3, 4, 5]) // 216
+sumOfCubes([2]) // 8
+sumOfCubes([]) // 0
+
+/****************************************************************************************************/
+
+// 2. Convert a Number to Base-2
+// Level: Easy
+// Link: https://edabit.com/challenge/3kcrnpHk7krNZdnKK
+
+// Goal: Convert decimal to binary
+
+//  Example: binary to decimal conversion
+//  Convert 101101 into decimal
+
+//  1    |  0    |  1    |  1    |  0    |  1
+//  2^5  |  2^4  |  2^3  |  2^2  |  2^1  |  2^0
+// ----------------------------------------------
+//  32   |  16   |  8    |  4    |  2    |  1
+//
+//  Sum up the one that has "1"
+//  32   +   0   +  8    +  4    +  0    +  1  =  45 #answer
+
+
+// pseudo-code
+/* 1. Determine if the value of decimal is zero or not
+ * 2. return zero if it is zero; else... 
+ * 3. Check if the decimal is within the range of 1-1023
+ * 4. splice out the number before the index and calculate
+ * 5. append 1 and 0 to result based on its indices
+ * 6. return result once the decimal = 0
+*/
+
+// Example: decimal to binary conversion
+
+// 700 - 512 (2^8 = 1)
+// 256 > 188 (2^7 = 0)
+// 188 - 128 (2^6 = 1)
+// 60 - 32 (2^5 = 1)
+// 28 - 16 (2^4 = 1)
+// 12 - 8 (2^3 = 1)
+// 4 - 4 (2^2 = 0)
+// 0 (2^1 = 0)
+//
+// Append them up starting from the right
+// 10111100 #answer
+
+function binary(decimal) {
+    // edge case:
+	if (decimal === 0) {
+        return "0";
+    }
+    // final result; for appending 1 or 0
+    let binaryResult = "";
+    const eightBit = [512, 256, 128, 64, 32, 16, 8, 4, 2, 1];
+    // indices for ref  9,   8,   7,  6,  5,  4, 3, 2, 1, 0
+
+    // index to keep track of the array "eightBit"
+    let index = 0;
+
+    // a toggle to allow appending; we don't want to have multiple zeros in the front
+    // example: 0000001
+    let startAppendZero = false;
+    
+    while(decimal>0){
+        if(eightBit[index]>decimal){
+            if (startAppendZero == true){   // start appending zero if "1" has been appended at least once
+                binaryResult += "0";
+            }
+        } else {
+            binaryResult += "1";
+            decimal -= eightBit[index]
+            startAppendZero = true;         // toggle for appending zeros
+        }
+        index++;
+    }
+    // if decimal became zero but we haven't finish looping the eightBit array, append the leftover with 0(s)
+    if (index < eightBit.length){
+        let leftover = eightBit.length - index;
+        while(leftover!=0){
+            binaryResult += "0";
+            leftover--;
+        }
+    }
+    console.log(binaryResult);
+    return binaryResult;
+}
+
+/* ALTERNATIVE SOLUTION */
+// We can use JavaScript built in number method to convert from decimal to binary
+// function binary(decimal) {
+//     return decimal.toString(2);
+// }
+
+
+// Test Cases
+binary(1) // "1"
+binary(5) // "101"
+binary(10) // "1010"
