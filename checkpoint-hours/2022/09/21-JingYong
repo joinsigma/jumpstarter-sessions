@@ -2,12 +2,13 @@
 
 // Number of Boomerangs
 function countBoomerangs(arr) {
-	// go through array in groups of 3
-    // check if #1 and #3 matches
-        // if true, check if #2 does not match #1  (5, -5, 5)
-            // add to total counter 
-        // else do nothing
-    // else do nothing
+    // *Pseudocode*
+    // 1. go through array in groups of 3
+    // 2. check if #1 and #3 matches
+    // 3.   if true, check if #2 does not match #1  (5, -5, 5)
+    // 4.       add to total counter 
+    // 5.   else do nothing
+    // 6. else do nothing
    
     let totalBoomerangs = 0
     for(let i = 0; i<arr.length-2; i++){
@@ -31,6 +32,14 @@ console.log(countBoomerangs([4, 4, 4, 9, 9, 9, 9]) )
 // ----Leetcode questions----
 
 // 1672. Richest Customer Wealth
+// *Pseudocode*
+// 1. max value = 0
+// 2. loop through number of nexted array in given array
+// 3. find the sum for each array, store as max value
+// 4.    if sum>max, max = sum
+// 5.    else do nothing
+// 6. return max
+
 var maximumWealth = function(accounts) {
     let maxWealth = 0
     for(customer of accounts){
